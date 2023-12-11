@@ -1,0 +1,115 @@
+<footer class="main-footer font-xs">
+   <div class="row pb-30 pt-15">
+       <div class="col-sm-6">
+           <script>
+           document.write(new Date().getFullYear())
+           </script> © <a href="/">LACEMIST</a> Clothes.
+       </div>
+       <div class="col-sm-6">
+           <div class="text-sm-end">
+               All rights reserved
+           </div>
+       </div>
+   </div>
+</footer>
+</main>
+<script>
+function validateForm(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var discountInput = document.getElementById("discount").value.trim();
+    var productCategory = document.getElementById("productCategory").value.trim();
+    var expiryDateInput = document.getElementById("Date").value.trim();
+
+    if (productCategory === '') {
+          showValidationError('Please select a category.');
+          return false;
+    }
+
+    if (isNaN(discountInput) || discountInput <= 0) {
+          showValidationError('Please enter a valid positive number for the discount.');
+          return false;
+    }
+
+    if (discountInput >= 100) {
+          showValidationError('Please enter a valid discount percentage.');
+          return false;
+    }
+
+    if (!expiryDateInput) {
+          showValidationError('Please enter the expiry date.');
+          return false;
+    }
+
+    var expiryDate = new Date(expiryDateInput);
+    if (expiryDate < new Date()) {
+          showValidationError('Expiry date must be in the future.');
+          return false;
+    }
+
+    fetch('/admin/category-offer-create', {
+                method: 'POST',
+                headers: {
+                      'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                      category: productCategory,
+                      discount: discountInput,
+                      expireDate: expiryDateInput,
+                }),
+          })
+          .then(response => {
+                if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                }
+                return response.json();
+          })
+          .then(data => {
+                if (data.success) {
+                      // This block is executed when success is true
+                      Swal.fire({
+                            icon: 'success',
+                            title: 'Offer Added Successfully',
+                            text: 'Your offer has been successfully added!',
+                      }).then(() => {
+                            // Reload the page after successful addition
+                            location.reload();
+                      });
+                }
+          })
+          .catch(error => {
+                console.error('Error:', error);
+                showValidationError('An error occurred. Please try again.');
+          });
+}
+
+function showValidationError(errorMessage) {
+    Swal.fire({
+          icon: 'error',
+          title: 'Validation Error',
+          text: errorMessage,
+    });
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/vendors/jquery.fullscreen.min.js"></script>
+<script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/vendors/select2.min.js"></script>
+<script src="/assets/js/vendors/perfect-scrollbar.js"></script>
+
+<!-- Main Script -->
+<script src="/assets/js/main.js" type="text/javascript"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</body>
+
+</html>
+

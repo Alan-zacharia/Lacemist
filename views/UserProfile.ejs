@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Evara - eCommerce HTML Template</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assets/css/main.css?v=3.4">
+</head>
+<style>
+    /* Add any custom styles for validation errors here */
+    .error-text {
+        color: red;
+    }
+
+    .status-red {
+        background-color: #ff0000;
+    }
+
+    .status-blue {
+        background-color: #0000ff;
+    }
+
+    .status-orange {
+        background-color: #ffa500;
+    }
+
+    .status-green {
+        background-color: rgb(0, 255, 72);
+    }
+</style>
+
+<%- include('partials/header.ejs') %>
+
+<body>
+    <header class="header-area header-style-5">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info">
+                            <ul>
+                                <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
+                                <li><i class="fi-rs-marker"></i><a href="page-contact.html">Our location</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-4">
+                        <div class="text-center">
+                            <div id="news-flash" class="d-inline-block">
+                                <ul>
+                                    <li>Get great devices up to 50% off <a href="shop-grid-right.html">View details</a>
+                                    </li>
+                                    <li>Supper Value Deals - Save more with coupons</li>
+                                    <li>Trendy 25silver jewelry, save up 35% off today <a
+                                            href="shop-grid-right.html">Shop now</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="header-info header-info-right">
+                            <ul>
+                                <li>
+                                    <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i
+                                            class="fi-rs-angle-small-down"></i></a>
+                                    <ul class="language-dropdown">
+                                        <li><a href="#"><img src="assets/imgs/theme/flag-fr.png" alt="">Français</a>
+                                        </li>
+                                        <li><a href="#"><img src="assets/imgs/theme/flag-dt.png" alt="">Deutsch</a></li>
+                                        <li><a href="#"><img src="assets/imgs/theme/flag-ru.png" alt="">Pусский</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom sticky-bar sticky-white-bg">
+            <div class="container">
+                <div class="header-wrap header-space-between position-relative">
+                    <div class="logo logo-width-1">
+                        <h3><span style="color: #ffa500; font-weight: 700;">LACE</span><span
+                                style="color: #0000ff; font-weight: 700;">MIST</span></h3>
+                    </div>
+                    <div
+                        class="main-menu main-menu-grow main-menu-padding-1 main-menu-lh-1 main-menu-mrg-1 hm3-menu-padding d-none d-lg-block hover-boder">
+                        <nav>
+                            <ul>
+                                <li><a class="active" href="/">Home <i class="fi-rs-angle-down"></i></a>
+
+                                </li>
+
+                                <li class="position-static"><a href="#">Mega <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="mega-menu">
+                                        <li class="sub-mega-menu sub-mega-menu-width-34">
+                                            <div class="menu-banner-wrap">
+                                                <a href="shop-product-right.html"><img
+                                                        src="assets/imgs/banner/menu-banner.jpg" alt="Evara"></a>
+                                                <div class="menu-banner-content">
+                                                    <h4>Hot deals</h4>
+                                                    <h3>Don't miss<br> Trending</h3>
+                                                    <div class="menu-banner-price">
+                                                        <span class="new-price text-success">Save to 50%</span>
+                                                    </div>
+                                                    <div class="menu-banner-btn">
+                                                        <a href="/product">Shop now</a>
+                                                    </div>
+                                                </div>
+                                                <div class="menu-banner-discount">
+                                                    <h3>
+                                                        <span>35%</span>
+                                                        off
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">My Account</a></li>
+                                        <li><a href="/login">login/register</a></li>
+                                        <li><a href="page-404">404 Page</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Contact</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="header-action-right">
+                        <div class="search-style-2">
+                        </div>
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="/whislist-view">
+                                    <img class="svgInject" alt="Evara" src="assets/imgs/theme/icons/icon-heart.svg">
+                                </a>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a class="mini-cart-icon" href="/cart">
+                                    <img alt="Evara" src="assets/imgs/theme/icons/icon-cart.svg">
+                                </a>
+
+                            </div>
+                            <div class="header-action-icon d-block d-lg-none">
+                                <div class="burger-icon">
+                                    <span class="burger-icon-top"></span>
+                                    <span class="burger-icon-mid"></span>
+                                    <span class="burger-icon-bottom"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="mobile-header-active mobile-header-wrapper-style">
+        <div class="mobile-header-wrapper-inner">
+            <div class="mobile-header-top">
+                <div class="mobile-header-logo">
+                    <h4><span style="color: hsl(39, 100%, 50%);">LACE</span><span
+                            style="color: hwb(240 0% 0%);">MIST</span></h4>
+                </div>
+                <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                    <button class="close-style search-close">
+                        <i class="icon-top"></i>
+                        <i class="icon-bottom"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mobile-header-content-area">
+                <div class="mobile-search search-style-3 mobile-header-border">
+                    <form action="#">
+                        <input type="text" placeholder="Search for items…">
+                        <button type="submit"><i class="fi-rs-search"></i></button>
+                    </form>
+                </div>
+                <div class="mobile-menu-wrap mobile-header-border">
+                    <div class="main-categori-wrap mobile-header-border">
+                        <a class="categori-button-active-2" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                    </div>
+                    <!-- mobile menu start -->
+                    <nav>
+                        <ul class="mobile-menu">
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a href="/">Home</a>
+                            </li>
+                            <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                    href="/product">shop</a>
+                            </li>
+                    </nav>
+                    <!-- mobile menu end -->
+                </div>
+                <div class="mobile-header-info-wrap mobile-header-border">
+                    <div class="single-mobile-header-info mt-30">
+                        <a href="page-contact.html"> Our location </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="page-login-register.html">Log In / Sign Up </a>
+                    </div>
+                    <div class="single-mobile-header-info">
+                        <a href="#">(+01) - 2345 - 6789 </a>
+                    </div>
+                </div>
+                <div class="mobile-social-icon">
+                    <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                    <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html" rel="nofollow">Home</a>
+                    <span></span> Pages
+                    <span></span> Account
+                </div>
+            </div>
+        </div>
+        <section class="pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="dashboard-menu">
+                                    <ul class="nav flex-column" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab"
+                                                href="#dashboard" role="tab" aria-controls="dashboard"
+                                                aria-selected="false"><i
+                                                    class="fi-rs-settings-sliders mr-10"></i>Dashboard</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address"
+                                                role="tab" aria-controls="address" aria-selected="true"><i
+                                                    class="fi-rs-marker mr-10"></i>My Address</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/wallet" role="tab"><i
+                                                    class="fi-rs-marker mr-10"></i>Wallet</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Cutomer-orders">
+                                                <i class="fi-rs-shopping-bag mr-10"></i>Orders</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/whislist-view"><i
+                                                    class="fi-rs-sign-out mr-10"></i>whislist</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/referal"><i
+                                                    class="fi-rs-sign-out mr-10"></i>Referal</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/logout"><i
+                                                    class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="tab-content dashboard-content">
+                                    <div class="col-md-8">
+                                        <div class="tab-content dashboard-content">
+
+
+                                            <div class="tab-pane fade active show" id="dashboard" role="tabpanel"
+                                                aria-labelledby="dashboard-tab">
+                                                <div class="card">
+
+                                                    <div class="rounded-top text-white d-flex flex-row"
+                                                        style="background-image: url('/userassets/imgs/shop/OIP\ \(2\).jpeg') ; height: 210px;">
+                                                        <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                                                            <% if (userDetails.image) { %>
+                                                            <img src="/<%=userDetails.image%>" alt=""
+                                                                class="img-fluid img-thumbnail mt-2 mb-2"
+                                                                style="width: 150px; height: 180px; z-index: 1">
+                                                            <% } else { %>
+                                                            <img src="/userassets/imgs/Profile.png" alt=""
+                                                                class="img-fluid img-thumbnail mt-2 mb-2"
+                                                                style="width: 130px; height: 130px; z-index: 6">
+                                                            <% } %>
+                                                            <a type="button" class="btn btn-outline-dark"
+                                                                data-mdb-ripple-color="dark" style="z-index: 1;"
+                                                                id="Edit-Profile-tab" data-bs-toggle="modal"
+                                                                href="#editProfileModal" role="tab"
+                                                                aria-controls="editProfileModal"
+                                                                aria-selected="true">Profile Edit</a>
+                                                        </div>
+                                                        <div class="ms-3" style="margin-top: 90px; ">
+                                                            <h3 style="color: #f8f9fa;"><%= userDetails.username %></h3>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class=" text-black" style="background-color: #f8f9fa;">
+                                                        <div class="justify-content-center text-center py-1"
+                                                            style="margin-top: 30px;">
+
+                                                            <h4>PROFILE</h4>
+
+                                                            <div class="d-flex justify-content-center ">
+
+                                                                <div class="table-responsive w-100 border-0 bg-transparent"
+                                                                    style="border: none;">
+                                                                    <table class="table mb-0 border-0 text-md-center"
+                                                                        style="border: none;">
+
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>Name </td>
+                                                                                <td><%=  userDetails.username  %></td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td>Email </td>
+                                                                                <td> <%= userDetails.email %></td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td>Mobile </td>
+                                                                                <td><%= userDetails.phone %></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+
+                                                            </div>
+
+                                                            <!-- //Change password / -->
+                                                            <div class="row mt-4 w-75 mx-auto">
+                                                                <a href="/forgot-password"
+                                                                    class="btn btn-primary">Change Password</a>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="editProfileModal" tabindex="-1"
+                                                aria-labelledby="editProfileModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editProfileModalLabel">Edit
+                                                                Profile</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+
+                                                        <!-- Modal Body with Profile Editing Form -->
+                                                        <div class="modal-body">
+                                                            <form id="editProfileForm" action="/edit-profile"
+                                                                method="POST" enctype="multipart/form-data">
+                                                                <!-- Profile Image -->
+                                                                <div class="mb-3">
+                                                                    <label for="profileImage" class="form-label">Profile
+                                                                        Image</label>
+                                                                    <div class="mb-3">
+                                                                        <img class="m-1" src="/<%= userDetails.image %>"
+                                                                            alt="<%= userDetails.name %>"
+                                                                            style="width: 65px; height: 80px">
+                                                                    </div>
+                                                                    <input type="file" class="form-control"
+                                                                        id="profileImage" name="profileImage"
+                                                                        accept="image/*">
+                                                                </div>
+
+                                                                <!-- Name -->
+                                                                <div class="mb-3">
+                                                                    <label for="name" class="form-label">Name</label>
+                                                                    <input type="text" class="form-control" id="name"
+                                                                        value="<%= userDetails.username %>" name="Name">
+                                                                    <small class="error-text" id="nameError"></small>
+                                                                </div>
+
+                                                                <!-- Email -->
+                                                                <div class="mb-3">
+                                                                    <label for="email" class="form-label">Email</label>
+                                                                    <input type="email" class="form-control" id="email"
+                                                                        value="<%= userDetails.email %>" name="Email"
+                                                                        required>
+                                                                    <small class="error-text" id="emailError"></small>
+                                                                </div>
+
+                                                                <!-- Mobile -->
+                                                                <div class="mb-3">
+                                                                    <label for="phone" class="form-label">Mobile</label>
+                                                                    <input type="text" class="form-control" id="phone"
+                                                                        value="<%= userDetails.phone %>" name="Phone"
+                                                                        required>
+                                                                    <small class="error-text" id="phoneError"></small>
+                                                                </div>
+
+                                                                <button type="submit"
+                                                                    class="btn btn-primary">Save</button>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="address" role="tabpanel"
+                                                aria-labelledby="address-tab">
+                                                <div class="row">
+                                                    <% if (address && address.addresses) { %>
+                                                    <% address.addresses.forEach(item => { %>
+                                                    <div class="col-lg-12 mb-3">
+                                                        <div class="card mb-3 mb-lg-0"
+                                                            style="width: 300px; border: 1px solid black; border-radius: 1px;">
+                                                            <div class="card-header"
+                                                                style=" border: 1px solid black; border-radius: 1px;">
+                                                                <h5 class="mb-0">
+                                                                    <% if (item.addressType === 'home') { %> Home
+                                                                    Address
+                                                                    <% } else if (item.addressType === 'work') { %> Work
+                                                                    Address
+                                                                    <% } else { %> Temporary Address
+                                                                    <% } %>
+                                                                </h5>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <address style="font-weight: 700;">House no:
+                                                                    <%= item.HouseNo %><br>Street:
+                                                                    <%= item.Street %>,<br>
+                                                                    <%= item.district %>. <br>State:
+                                                                    <%= item.State %>,<br> pin code: <%= item.pincode %>
+                                                                </address>
+                                                                <p><%= item.Country %></p>
+                                                                <a href="#" class="btn-small">Edit</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <% }) %>
+                                                    <% } else { %>
+                                                    <!-- Handle the case when address or addresses is null -->
+                                                    <p>No addresses available.</p>
+                                                    <% } %>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </section>
+    </main>
+    <script>
+        function confirmDelete(orderId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, cancel it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User clicked "Yes, delete it!"
+                    cancelOrder(orderId);
+                }
+            });
+        }
+
+
+        function cancelOrder(orderId) {
+            fetch(`/profile/cancel-order/${orderId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        // Order was successfully canceled
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Order canceled',
+                        });
+                        window.location.reload();
+                    } else {
+                        console.error('Error canceling order:', response.statusText);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        document.getElementById('editProfileForm').addEventListener('submit', function (event) {
+            // Name validation
+            var nameInput = document.getElementById('name');
+            var nameError = document.getElementById('nameError');
+            if (nameInput.value.trim() === '') {
+                nameError.textContent = 'Name is required';
+                event.preventDefault();
+            } else {
+                nameError.textContent = '';
+            }
+
+            // Email validation
+            var emailInput = document.getElementById('email');
+            var emailError = document.getElementById('emailError');
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value.trim())) {
+                emailError.textContent = 'Invalid email format';
+                event.preventDefault();
+            } else {
+                emailError.textContent = '';
+            }
+
+            // Phone number validation
+            var phoneInput = document.getElementById('phone');
+            var phoneError = document.getElementById('phoneError');
+            var phoneRegex = /^\d+$/;
+            var phoneNumber = phoneInput.value.trim();
+            if (!phoneRegex.test(phoneNumber) || phoneNumber.length !== 10) {
+                phoneError.textContent = 'Invalid mobile number (must be 10 digits)';
+                event.preventDefault();
+            } else {
+                phoneError.textContent = '';
+            }
+        });
+    </script>
+
+    <%- include('partials/footer.ejs') %>

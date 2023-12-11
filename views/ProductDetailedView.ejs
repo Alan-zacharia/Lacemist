@@ -1,0 +1,454 @@
+<%-include ('partials/header.ejs') %>
+<header class="header-area header-style-1 header-height-2">
+    <div class="header-top header-top-ptb-1 d-none d-lg-block">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-3 col-lg-4">
+                    <div class="header-info">
+                        <ul>
+                            <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
+                            <li><i class="fi-rs-marker"></i><a href="#">Our location</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-4">
+                    <div class="text-center">
+                        <div id="news-flash" class="d-inline-block">
+                            <ul>
+                                <li>Get great devices up to 50% off <a href="shop-grid-right.html">View details</a></li>
+                                <li>Supper Value Deals - Save more with coupons</li>
+                                <li>Trendy 25silver jewelry, save up 35% off today <a href="/product">Shop
+                                        now</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4">
+                    <div class="header-info header-info-right">
+                        <ul>
+                            <li>
+                                <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i
+                                        class="fi-rs-angle-small-down"></i></a>
+                                <ul class="language-dropdown">
+                                    <li><a href="#"><img src="assets/imgs/theme/flag-fr.png" alt="">Français</a></li>
+                                    <li><a href="#"><img src="assets/imgs/theme/flag-dt.png" alt="">Deutsch</a></li>
+                                    <li><a href="#"><img src="assets/imgs/theme/flag-ru.png" alt="">Pусский</a></li>
+                                </ul>
+                            </li>
+                            <% if (userId) { %>
+                            <li><i class="fi-rs-user"></i><a href="/profile">Profile</a></li>
+
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+        <div class="container">
+            <div class="header-wrap">
+                <div class="logo logo-width-1">
+                    <a href="/home"><img src="/userassets/imgs/theme/icons/lacemist-logo.png" alt="logo"></a>
+                </div>
+                <div class="header-right">
+                    <div class="search-style-2">
+                        <form action="#">
+                            <input type="text" placeholder="Search for items...">
+                        </form>
+                    </div>
+                    <div class="header-action-right">
+                        <div class="header-action-2">
+                            <div class="header-action-icon-2">
+                                <a href="/whislist-view">
+                                    <img class="svgInject" alt="Evara"
+                                        src="/userassets/imgs/theme/icons/icon-heart.svg">
+                                </a>
+                            </div>
+                            <div class="header-action-icon-2">
+                                <a class="mini-cart-icon" href="/cart">
+                                    <img alt="Evara" src="/userassets/imgs/theme/icons/icon-cart.svg">
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-bottom header-bottom-bg-color sticky-bar">
+        <div class="container">
+            <div class="header-wrap header-space-between position-relative">
+                <div class="logo logo-width-1 d-block d-lg-none">
+                    <h4><span style="color: hsl(39, 100%, 50%);">LACE</span><span
+                            style="color: hwb(240 0% 0%);">MIST</span></h4>
+                </div>
+                <div class="header-nav d-none d-lg-flex">
+                    <div class="main-categori-wrap d-none d-lg-block">
+                        <a class="categori-button-active" href="#">
+                            <span class="fi-rs-apps"></span> Browse Categories
+                        </a>
+                        <div class="categori-dropdown-wrap categori-dropdown-active-large">
+                            <ul>
+                                <li class="has-children">
+
+                                    <div class="dropdown-menu">
+                                        <ul class="mega-menu d-lg-flex">
+                                            <li class="mega-menu-col col-lg-7">
+                                                <ul class="d-lg-flex">
+
+
+                                                </ul>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="has-children">
+                                    <a href="shop-grid-right.html"><i class="evara-font-tshirt"></i>Men's Clothing</a>
+                                    <div class="dropdown-menu">
+                                        <ul class="mega-menu d-lg-flex">
+                                            <li class="mega-menu-col col-lg-7">
+                                                <ul class="d-lg-flex">
+                                                    <li class="mega-menu-col col-lg-6">                                        
+                                                    </li>
+                                                    <li class="mega-menu-col col-lg-6">                                            
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="mega-menu-col col-lg-5">
+                                                <div class="header-banner2">
+                                                    <img src="assets/imgs/banner/menu-banner-4.jpg" alt="menu_banner1">
+                                                    <div class="banne_info">
+                                                        <h6>10% Off</h6>
+                                                        <h4>New Arrival</h4>
+                                                        <a href="#">Shop now</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                
+                        </div>
+                    </div>
+                    <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                        <nav>
+                            <ul>
+                                <li><a class="active" href="/">Home <i class="fi-rs-angle-down"></i></a>
+
+                                <li>
+                                    <a href="#">About</a>
+                                </li>
+                                <li><a href="/shop">Shop </a>
+                                </li>                                                              
+                                <li><a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="/profile">My Account</a></li>
+                                        <li><a href="/login">login/register</a></li>
+                                        <li><a href="page-404">404 Page</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Contact</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="hotline d-none d-lg-block">
+                    <p><i class="fi-rs-headset"></i><span>Hotline</span> 1900 - 888 </p>
+                </div>
+                <p class="mobile-promotion">Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to 40%</p>
+                <div class="header-action-right d-block d-lg-none">
+                    <div class="header-action-2">
+                        <div class="header-action-icon-2">
+                            <a href="/whishlist-view">
+                                <img alt="Evara" src="/userassets/imgs/theme/icons/icon-heart.svg">
+                                <span class="pro-count white">4</span>
+                            </a>
+                        </div>
+                        <div class="header-action-icon-2">
+                            <a class="mini-cart-icon" href="/cart">
+                                <img alt="Evara" src="/userassets/imgs/theme/icons/icon-cart.svg">                              
+                            </a>                            
+                        </div>
+                        <div class="header-action-icon-2 d-block d-lg-none">
+                            <div class="burger-icon burger-icon-white">
+                                <span class="burger-icon-top"></span>
+                                <span class="burger-icon-mid"></span>
+                                <span class="burger-icon-bottom"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="mobile-header-active mobile-header-wrapper-style">
+    <div class="mobile-header-wrapper-inner">
+        <div class="mobile-header-top">
+            <div class="mobile-header-logo">
+                <h4><span style="color: hsl(39, 100%, 50%);">LACE</span><span style="color: hwb(240 0% 0%);">MIST</span>
+                </h4>
+            </div>
+            <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
+                <button class="close-style search-close">
+                    <i class="icon-top"></i>
+                    <i class="icon-bottom"></i>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-header-content-area">
+            <div class="mobile-search search-style-3 mobile-header-border">
+                <form action="#">
+                    <input type="text" placeholder="Search for items…">
+                    <button type="submit"><i class="fi-rs-search"></i></button>
+                </form>
+            </div>
+            <div class="mobile-menu-wrap mobile-header-border">
+                <div class="main-categori-wrap mobile-header-border">
+                    <a class="categori-button-active-2" href="#">
+                        <span class="fi-rs-apps"></span> Browse Categories
+                    </a>                   
+                </div>
+                <!-- mobile menu start -->
+                <nav>
+                    <ul class="mobile-menu">
+                        <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                href="/home">Home</a>                            
+                        </li>
+                        <li class="menu-item-has-children"><span class="menu-expand"></span><a
+                                href="#">shop</a>
+                        </li>                                            
+                        </li>                
+                        <li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
+                            <ul class="dropdown">
+                                <li><a href="#">English</a></li>
+                                <li><a href="#">French</a></li>
+                                <li><a href="#">German</a></li>
+                                <li><a href="#">Spanish</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- mobile menu end -->
+            </div>
+            <div class="mobile-header-info-wrap mobile-header-border">
+                <div class="single-mobile-header-info mt-30">
+                    <a href="page-contact.html"> Our location </a>
+                </div>
+                <div class="single-mobile-header-info">
+                    <a href="page-login-register.html">Log In / Sign Up </a>
+                </div>
+                <div class="single-mobile-header-info">
+                    <a href="#">(+01) - 2345 - 6789 </a>
+                </div>
+            </div>
+            <div class="mobile-social-icon">
+                <h5 class="mb-15 text-grey-4">Follow Us</h5>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-facebook.svg" alt=""></a>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-twitter.svg" alt=""></a>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-instagram.svg" alt=""></a>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-pinterest.svg" alt=""></a>
+                <a href="#"><img src="assets/imgs/theme/icons/icon-youtube.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row gx-5">
+            <aside class="col-lg-6">
+            
+                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                    <div class="image-zoom-container">
+                        <a data-fslightbox="mygallery" class="rounded-4" id="imgShow">
+                            <img class="rounded-4 fit" src="/<%= product.image %>" alt="Product Image" id="zoom-image">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mb-3" id="thumbnail-container">
+                    <!-- Main Thumbnail -->
+                    <a data-fslightbox="mygallery" class="border mx-1 rounded-2" data-image="/<%= product.image %>"
+                        onclick="imgChange(this)">
+                        <img width="100" height="120" class="rounded-2" src="/<%= product.image %>" />
+                    </a>
+
+                    <!-- Additional Thumbnails -->
+                    <% product.images.forEach(element => { %>
+                    <a data-fslightbox="mygallery" class="border mx-1 rounded-2" data-image="/<%= element %>"
+                        onclick="imgChange(this)">
+                        <img width="100" height="120" class="rounded-2" src="/<%= element %>" />
+                    </a>
+                    <% }) %>
+                </div>
+
+                <!-- thumbs-wrap.// -->
+                <!-- gallery-wrap .end// -->
+            </aside>
+            <main class="col-lg-6">
+                <div class="ps-lg-3">
+                    <h4 class="title text-dark">
+                        <%= product.productName %>
+                    </h4>
+                    <div class="d-flex flex-row my-3">
+                        <div class="text-warning mb-1 me-2">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="ms-1">
+                                4.5
+                            </span>
+                        </div>
+                        <span class="text-muted"><i
+                                class="fas fa-shopping-basket fa-sm mx-1"></i><%= product.countInStock %></span>
+                        <span class="text-success ms-2">In stock</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="h5">₹ <%= product.price %></span>
+                        <span class="text-muted">/per box</span>
+                    </div>
+
+                    <p>
+                        <%= product.description %>
+                    </p>
+
+                    <div class="row">
+                        <dt class="col-3">Type:</dt>
+                        <dd class="col-9">Regular</dd>
+
+                        <dt class="col-3">Color</dt>
+                        <dd class="col-9">Brown</dd>
+
+                        <dt class="col-3">Material</dt>
+                        <dd class="col-9">Cotton, Jeans</dd>
+
+                        <dt class="col-3">Brand</dt>
+                        <dd class="col-9">Reebook</dd>
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-4">
+                        <div class="col-md-4 col-6">
+                            <label class="mb-2">Size</label>
+                            <select class="form-select border border-secondary" style="height: 35px;">
+                                <option>Small</option>
+                                <option>Medium</option>
+                                <option>Large</option>
+                            </select>
+                        </div>
+                        <!-- col.// -->
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="input-group mb-3" style="width: 170px;">                        
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
+                    <button type="button" class="button button-add-to-cart"
+                        onclick="addtoCart('<%= userId %>','<%= product._id %>')"
+                        <%= product.countInStock <= 0 ? 'disabled' : '' %>
+                        <%= product.countInStock <= 0 ? 'data-toggle="tooltip" data-placement="bottom" title="Out of Stock"' : '' %>>
+
+                        <% if (product.countInStock <= 0) { %>
+                        <style>
+                            .button {
+                                background-color: red;
+                            }
+                        </style>
+                        Out of Stock
+                        <% } else { %>
+                        Add to Cart
+                        <% } %>
+                    </button>
+
+                    <button type="button" class="btn btn-light border border-secondary py-2 icon-hover px-3"
+                        onclick="addroWhislist('<%= userId%>','<%= product._id%>')"> <i
+                            class="me-1 fa fa-heart fa-lg"></i> Save </button>
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+<!-- content -->
+
+<section class="bg-light border-top py-4">
+    <div class="container">
+        <div class="row gx-4">
+            <div class="col-lg-8 mb-4">
+                <div class="border rounded-2 px-3 py-2 bg-white">
+                   
+                    <!-- Pills navs -->
+
+                    <!-- Pills content -->
+                    <div class="tab-content" id="ex1-content">
+                        <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel"
+                            aria-labelledby="ex1-tab-1">
+                        <h3>Description</h3>
+                            <p>
+                                <%= product.description %>
+                            </p>
+                       
+                        </div>
+                        
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- ElevateZoom plugin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
+<script>
+    jQuery.noConflict();
+    jQuery(document).ready(function ($) {
+       
+        initElevateZoom();  
+        function initElevateZoom() {
+            $('#zoom-image').elevateZoom({
+                zoomType: "inner",
+                cursor: "crosshair",
+                zoomWindowFadeIn: 500,
+                zoomWindowFadeOut: 750,
+                gallery: 'thumbnail-container',
+                galleryActiveClass: 'active',
+                zoomWindowBackgroundColor: '#fff', 
+                
+            
+            });
+        }
+        function imgChange(thumbnail) {
+           
+            $('#zoom-image').removeData('elevateZoom');
+            $('.zoomContainer').remove();
+
+          
+            $('#zoom-image').attr('src', $(thumbnail).data('image'));
+
+           
+            initElevateZoom();
+
+           
+            const lightbox = FSLightbox.instances[0];
+            lightbox.show($(thumbnail).data('image'));
+        }
+
+    });
+</script>
+
+
+
+
+<%- include('partials/footer.ejs') %>

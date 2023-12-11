@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lace Mist</title>
+
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+</head>
+
+<%- include('partials/head.ejs') %>
+<body>
+    <div class="container mt-5">
+        <h2 style="margin: 30px 0px;   color: darkblue; ">Orders List</h2>
+        <% if (orders && orders.length) { %>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Total Amount</th>
+                    <th>Payment Method</th>
+                    <th>Order Status</th>
+                    <th>Cancel</th>
+                    <th>Return</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(order => { %>
+                <tr>
+                    <td><a href="/order-view/<%= order._id  %>"> <i class="fa-solid fa-eye" style="color: #1f5145;"></i> #<%= order._id %></a></td>
+                    <td><%= order.orderDate.toLocaleString() %></td>
+                    <td>₹<%= order.billTotal %></td>
+                    <td><%= order.paymentMethod %></td>
+                    <td>
+                        <% if (order.status === 'Shipped') { %>
+                        <span class="badge badge-success "
+                            style="background-color: rgb(6, 237, 18);"><%= order.status %></span>
+                        <% } else if (order.status === 'Pending') { %>
+                        <span class="badge badge-primary" style="background-color: orange;"><%= order.status %></span>
+                        <% } else if(order.status == 'Delivered'){ %>
+                            <span class="badge badge-primary" style="background-color: rgb(30, 0, 255);"><%= order.status %></span>
+                     <% } else if (order.status == 'Return') { %>
+                        <span class="badge badge-primary" style="background-color: rgb(8, 181, 239);"><%= order.status %></span>
+                     <% } else if (order.status == 'Request') { %>
+                        <span class="badge badge-primary" style="background-color: rgb(239, 8, 158);">return pending</span>
+                        <% } else { %>
+                            <span class="badge badge-primary" style="background-color: rgb(239, 8, 8);"><%= order.status %></span>
+                        <% } %>
+
+                    </td>
+                    <% if (order.status == 'Return') { %>
+                        <td>
+                        <p>Returned</p>
+                        </td> 
+                    <% } else if (order.status == 'Delivered') { %>
+                        <td>
+                       <p>Delivered </p>
+                        </td>
+                   <% } else { %>
+
+                    <% if (order.status == 'Canceled') { %>
+                    <td>
+                        <p style="color: #ff0000;">Order cancelled</p>
+                    </td>
+                    <% } else if (order.status == 'Request') { %>
+                     <p></p>
+                    <% } else { %>
+                    <td><button class="btn" type="submit" onclick="confirmDelete('<%= order._id %>')"
+                            style="background-color: #ff0000; color: #faebd7;">Cancel </button></td>
+                    <% } %>
+                    <% } %>
+
+                    <% if (order.status == 'Canceled') { %>
+                        <td>
+                            <p style="color: #ff0000;">Order cancelled</p>
+                        </td>
+                       <% } else if (order.status == 'Deliverd') { %>
+                        <td>
+                            <p style="color: #0800ff;">Order Delivered</p>
+                        </td>
+                        <% } else { %>                       
+                    <% if (order.status == 'Return') { %>
+                    <td>
+                        <p style="color: #ff0909;">returned</p>
+                    </td>
+                    <% } else if (order.status == 'Request') { %>
+                        <td>
+                            <p style="color: #ff0909;">confirmation pending get request before 24 hours</p>
+                        </td>
+                   <% } else if (order.status == 'Delivered') { %>
+                    
+                        
+                    <td><button class="btn" type="submit" onclick="confirmReturn('<%= order._id %>')"
+                            style="background-color: #ff0000; color: #faebd7;">Return </button></td>
+
+                            <div class="modal fade" id="returnModal" tabindex="-1" aria-labelledby="returnModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="returnModalLabel">Enter Return Reason</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label for="returnReason" class="form-label">Reason for Return:</label>
+                                            <textarea class="form-control" id="returnReason" rows="3" ></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" onclick="closeModal()" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" onclick="submitReturn('<%= order._id %>')">Submit Return</button>
+                                        <!-- Spinner -->
+                                    <div class="spinner-border text-primary" role="status" id="submitReturnSpinner" style="display: none;">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } else { %>
+                                <td>
+                                <p>Order is pending</p>
+                            </td>
+                    <% } %>
+                    <% } %>
+                </tr>
+                <% }) %>
+
+            </tbody>
+        </table>
+        <% } else { %>
+        <div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+            <h1>No Orders</h1>
+        </div>
+        <% } %>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmDelete(orderId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, cancel it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User clicked "Yes, delete it!"
+                    cancelOrder(orderId);
+                }
+            });
+        }
+
+        function confirmReturn(orderId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User clicked "Yes, delete it!"
+                    returnOrder(orderId);
+                }
+            });
+        }
+
+        function cancelOrder(orderId) {
+            fetch(`/profile/cancel-order/${orderId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        // Order was successfully canceled
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Order canceled',
+                        }).then(()=>{
+                            location.reload();
+                        })
+                    } else {
+                        console.error('Error canceling order:', response.statusText);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+          function returnOrder(orderId){
+            var modal = new bootstrap.Modal(document.getElementById('returnModal'));
+            modal.show();
+          }
+        function submitReturn(orderId) {
+            const value = document.getElementById("returnReason").value
+            const ReasonValue = value
+            fetch(`/profile/return-order/${orderId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body : JSON.stringify({ReasonValue})
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        
+                        window.location.reload();
+                    } else {
+                       alert('Error canceling order:', response.statusText);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+   <%- include('partials/footer.ejs') %>
