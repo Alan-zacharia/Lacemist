@@ -1,7 +1,7 @@
 const {customerModel} = require("../model/customer");
 const categoryModel = require("../model/category");
 const {productModel} = require("../model/product");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const {sentOtp} = require("../nodeMailer");
 const {  error,log } = require("console");
 const { AddressModel } = require('../model/addressModel');
@@ -447,7 +447,7 @@ const productDetailedView = async (req, res,next) => {
       res.status(404);
       next()
     }
-    
+
     let user = (req.session.email) ? await customerModel.findOne({
       email: req.session.email
     }) : null;
