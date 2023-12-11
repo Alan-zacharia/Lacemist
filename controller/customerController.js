@@ -447,7 +447,7 @@ const productDetailedView = async (req, res,next) => {
       res.status(404);
       next()
     }
-
+    
     let user = (req.session.email) ? await customerModel.findOne({
       email: req.session.email
     }) : null;
