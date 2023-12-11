@@ -1,0 +1,174 @@
+<%-include('partials/head.ejs') %>
+
+<section class="mt-30 mb-30">
+  <div class="container p-5" id="alert-box">
+      <!-- alert box -->
+  </div>
+
+   
+
+  <% if (whishlist && whishlist.items && whishlist.items.length > 0) { %>
+  <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <div class="table-responsive">
+                  <table class="table shopping-summery text-center clean">
+                      <thead>
+                          <tr class="main-heading">
+                              <th scope="col">Image</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Price</th>                              
+                              <th scope="col">Add to cart</th>                              
+                              <th scope="col">Remove</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <% whishlist.items.forEach((item) =>{ %>
+                          <tr>
+                              <td class="image product-thumbnail"><a href="/product-details/<%= item.product %>"><img src="/<%= item.data.image  %>" alt="#"></a></td>
+                              <td class="product-des product-name">
+                                  <h5 class="product-name"><a href="/product-details/<%= item.product %>"><%= item.data.productName %></a></h5>
+                                  <p class="font-xs"><br>
+                                  </p>
+                              </td>
+                             
+                              <td class="price" data-title="Price"><span>₹ <%= item.data.price %></span></td>  
+
+
+                              <td><button type="button" class="button button-add-to-cart"
+                              onclick="addtoWhislistCart('<%= userId %>','<%= item.product %>')"
+                              <%= item.data.countInStock <= 0 ? 'disabled' : '' %>
+                              <%= item.data.countInStock <= 0 ? 'data-toggle="tooltip" data-placement="bottom" title="Out of Stock"' : '' %>>
+      
+                              <% if (item.data.countInStock <= 0) { %>
+                              <style>
+                                  .button {
+                                      background-color: red;
+                                  }
+                              </style>
+                              Out of Stock
+                              <% } else { %>
+                              Add to Cart
+                              <% } %>
+                          </button></td>
+                              <td class="action" data-title="Remove"><button type="button" onclick="confirmDelete('<%= item.product %>')" class="text-muted"><i class="fa-sharp fa-solid fa-trash" style="color: #ff0000;"></i></i></button></td>
+                          </tr>
+                          <% })%>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="cart-action text-end">
+                 
+                  <a class="btn btn-outline-primary " href="/"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
+              </div>
+              <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
+              <div class="row mb-50">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+ 
+  <% } else { %>
+          <div class="container">
+              <div class="row">
+          <div class="col-12">
+              <div class="card">
+                  <div class="card-header">
+                  <h3>Wishlist</h3>
+                  </div>
+                  <div class="card-body cart">
+                          <div class="col-sm-12 empty-cart-cls text-center">
+                              <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                              <h3><strong>Your Wishlist is empty</strong></h3>
+                              <h4>Add something to make me happy :</h4>
+                              <a href="/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+
+                          </div>
+                  </div>
+          </div>
+          </div>
+          </div>
+          <% } %>   
+
+ 
+</section>
+<script>
+  function confirmDelete(productId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, Remove it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            cancelOrder(productId);
+        }
+    });
+}
+function cancelOrder(productId) {
+  
+  
+    fetch(`/profile/remove-whislist/:${productId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((response)=>{
+    if(response.ok){
+    Swal.fire({
+      title: 'success',
+      icon : 'success',
+      text: 'product is removed'
+    })
+    window.location.reload()
+  }else{
+    console.error('Error canceling order:', response.statusText);
+  }
+  })
+  .catch((error)=>{
+    console.log(error.message);
+  })
+  }
+
+  async function addtoWhislistCart(userId,productId){
+    try{
+       
+     const response = await fetch(`/add-toWhislistCart`,{
+        method:'POST',
+        headers : {
+          'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({
+          productId,
+          userId,
+        })
+     })
+     if (response.ok) {
+  Swal.fire({
+    title: 'Success',
+    icon: 'success',
+    text: 'Added to cart successfully'
+  }).then((result)=>{
+    location.reload()
+  })
+} else {
+  Swal.fire({
+    title: 'Fail',
+    icon: 'error',
+    text: 'Add to cart failed'
+  });
+}
+    }catch(error){
+      console.log(error.message);
+      alert('error occured' + error.message)
+    }
+  
+  }
+</script>
+
+<%- include('partials/footer.ejs') %>

@@ -1,0 +1,264 @@
+<%- include('admin-partials/header.ejs') %>
+<style>
+    .status-red {
+        background-color: #ff0000;
+    }
+
+    .status-blue {
+        background-color: #4000ff;
+    }
+
+    .status-orange {
+        background-color: rgb(255, 162, 0);
+    }
+
+    .status-green {
+        background-color: #008000;
+    }
+</style>
+
+<div class="page-wrapper">
+
+    <div class="main-container">
+
+        <main class="main-wrap">
+            <header class="main-header navbar">
+                <div class="col-search">
+                    <form class="searchform">
+                        <div class="input-group">
+                            <input list="search_terms" type="text" class="form-control border"
+                                placeholder="Search Orders" name="Search">
+                            <input class="btn btn-primary bg" type="submit"> </input>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-nav">
+                    <button class="btn btn-icon btn-mobile me-auto" data-trigger="#offcanvas_aside"> <i
+                            class="material-icons md-apps"></i> </button>
+                    <ul class="nav">
+
+                        <li class="nav-item">
+                            <a class="nav-link btn-icon darkmode" href="#"> <i
+                                    class="material-icons md-nights_stay"></i> </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="requestfullscreen nav-link btn-icon"><i
+                                    class="material-icons md-cast"></i></a>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage"
+                                aria-expanded="false"><i class="material-icons md-public"></i></a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                                <a class="dropdown-item text-brand" href="#"><img src="/imgs/theme/flag-us.png"
+                                        alt="English">English</a>
+                                <a class="dropdown-item" href="#"><img src="/imgs/theme/flag-fr.png"
+                                        alt="Français">Français</a>
+                                <a class="dropdown-item" href="#"><img src="/imgs/theme/flag-jp.png"
+                                        alt="Français">日本語</a>
+                                <a class="dropdown-item" href="#"><img src="/imgs/theme/flag-cn.png"
+                                        alt="Français">中国人</a>
+                            </div>
+                        </li>
+                        <li class="dropdown nav-item">
+                            <i class="fa-solid fa-user-tie"></i>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                                <a class="dropdown-item" href="#"><i class="material-icons md-perm_identity"></i>Edit
+                                    Profile</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons md-settings"></i>Account
+                                    Settings</a>
+                                <a class="dropdown-item" href="#"><i
+                                        class="material-icons md-account_balance_wallet"></i>Wallet</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
+                                <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help
+                                    center</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="/admin/logout"><i
+                                        class="material-icons md-exit_to_app"></i>Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <div
+                class="d-flex ms-4 me-4 justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h3 class="h3 text-primary">Order Management</h3>
+                <div class="btn-toolbar mb-2 mb-md-0">
+
+
+                </div>
+            </div>
+
+            <!-- Content wrapper scroll start -->
+            <div class="content-wrapper-scroll">
+
+                <!-- Content wrapper start -->
+                <div class="content-wrapper">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-12">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table m-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.No</th>
+
+                                                    <th>Status</th>
+                                                    <th>Ordered BY</th>
+                                                    <th>Purchased</th>
+                                                    <th>Date</th>
+                                                    <th>Price</th>
+                                                    <th class="text-right">View</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if(orders && orders.length > 0 ){ %>
+                                                <% orders.forEach((order, index) => { %>
+                                                <tr>
+                                                    <td><%= index + 1  %></td>
+                                                    <td>
+                                                        <% const status = order.status; %>
+                                                        <% if (order.status == 'Request') { %>
+                                                        <button type="button" class="btn btn-primary"
+                                                            onclick="confirmReturn('<%=order._id%>')">Confirm
+                                                            Return</button>
+
+                                                        <% } else { %>
+                                                        <span class="badge shade <%= getStatusColorClass(status) %>"
+                                                            style="font-weight: 600; font-size: 15px;"><%= status %></span>
+                                                        <% } %>
+                                                    </td>
+
+
+                                                    <td><%= order && order.user ? order.user.username : 'N/A' %></td>
+
+
+                                                    <td>
+                                                        <% const totalQuantity = order.items.reduce((total, item) => total + item.quantity, 0); %>
+                                                        <%= totalQuantity %> Items
+                                                    </td>
+                                                    <td><%= order.orderDate.toLocaleString() %></td>
+                                                    <td class="text-bold">INR <%= order.billTotal %></td>
+                                                    <td>
+                                                        <a
+                                                            href="/admin/order-management/orderDetailedView/<%= order._id %>">
+                                                            <div>
+                                                                <button class="btn btn-success btn-small">
+                                                                    <i class="fa-regular fa-eye"
+                                                                        style="color: #ffff; height: 8px;"></i>
+                                                                </button>
+                                                            </div>
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                                <% }) } else{ %>
+
+                                                <tr>
+                                                    <td colspan="9" class="text-center">No orders Found</td>
+                                                </tr>
+                                                <% } %>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="pagination-area mt-30 mb-50">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-start">
+                                <% for (let i = 1; i <= totalPages; i++) { %>
+                                <% if (i === currentPage) { %>
+                                <li class="page-item active"><span class="page-link selected-page"><%= i %></span></li>
+                                <% } else if (i === 1 || i === 2 || i === totalPages || i === currentPage - 1 || i === currentPage + 1) { %>
+                                <li class="page-item"><a class="page-link"
+                                        href="?page=<%= i %>&search=<%= search %>"><%= i %></a></li>
+                                <% } else if (i === currentPage - 2 || i === currentPage + 2) { %>
+                                <li class="page-item"><span class="page-link dot">...</span></li>
+                                <% } %>
+                                <% } %>
+                            </ul>
+                        </nav>
+                    </div>
+
+
+                </div>
+                <div class="app-footer">
+                    <span>©</span>
+                </div>
+            </div>
+    </div>
+</div>
+
+</main>
+<%- include('admin-partials/footer.ejs') %>
+<script>
+    function confirmReturn(orderId) {
+        Swal.fire({
+            title: 'confirm return?',
+            text: 'Are you sure you want to confirm this return?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, return it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/admin/return-orderConfirmation/${orderId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire('Successful', '', 'success');
+                            window.location.href = '/admin/order-management';
+                        } else {
+                            Swal.fire('Error Deleting Order', data.message, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error confirming return:', error);
+                    });
+            }
+        });
+    }
+
+</script>
+<script>
+    $(document).ready(function () {
+        const currentPath = window.location.pathname;
+
+        $('.menu-aside a').each(function () {
+            if ($(this).attr('href') === currentPath) {
+                $(this).closest('li').addClass('active');
+            }
+        });
+    });
+</script>
+<script src="/stylesheets/assets/js/vendors/jquery-3.6.0.min.js"></script>
+<script src="/stylesheets/assets/js/vendors/bootstrap.bundle.min.js"></script>
+<script src="/stylesheets/assets/js/vendors/select2.min.js"></script>
+<script src="/stylesheets/assets/js/vendors/perfect-scrollbar.js"></script>
+<script src="/stylesheets/assets/js/vendors/jquery.fullscreen.min.js"></script>
+<script src="/stylesheets/assets/js/vendors/chart.js"></script>
+<!-- Main Script -->
+<script src="/stylesheets/assets/js/main.js" type="text/javascript"></script>
+<script src="/stylesheets/assets/js/custom-chart.js" type="text/javascript"></script>
+</body>
+
+</html>

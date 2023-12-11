@@ -1,0 +1,150 @@
+<%- include('partials/head.ejs') %>
+
+<section class="content-main">
+    <div class="container">
+        <button class="btn btn-secondary" onclick="downloadInvoice('<%= orders._id %>')">Download Invoice</button>
+
+        <div class="card">
+            <header class="card-header d-flex flex-column">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6 mb-lg-0 mb-15 ">
+                        <span>
+                            <i class="material-icons md-calendar_today"></i> <b><%= orders.orderDate.toDateString() %>,
+                                <%= orders.orderDate.toLocaleTimeString() %></b>
+                        </span> <br>
+                        <small class="text-muted">Order ID:# <%= orders._id %></small>
+                    </div>
+                </div>
+            </header> <!-- card-header end// -->
+            <div class="card-body">
+                <div class="row mb-50 mt-20 order-info-wrap">
+                    <div class="col-md-4">
+                        <label for="Address" style="font-weight: bolder;">Address Type:</label><br>
+                        <h6><%= orders.deliveryAddress.addressType.toUpperCase() %></h6>
+
+                        <label for="HouseNo" style="font-weight: bolder;">House Number:</label><br>
+                        <h6><%= orders.deliveryAddress.HouseNo %></h6>
+
+                        <label for="Street" style="font-weight: bolder;">Street:</label><br>
+                        <h6><%= orders.deliveryAddress.Street %></h6>
+
+                        <label for="Landmark" style="font-weight: bolder;">Landmark:</label><br>
+                        <h6><%= orders.deliveryAddress.Landmark %></h6>
+
+                        <label for="Pincode" style="font-weight: bolder;">Pincode:</label><br>
+                        <h6><%= orders.deliveryAddress.pincode %></h6>
+
+                        <label for="City" style="font-weight: bolder;">City:</label><br>
+                        <h6><%= orders.deliveryAddress.city %></h6>
+
+                        <label for="District" style="font-weight: bolder;">District:</label><br>
+                        <h6><%= orders.deliveryAddress.district %></h6>
+
+                        <label for="State" style="font-weight: bolder;">State:</label><br>
+                        <h6><%= orders.deliveryAddress.State %></h6>
+
+                        <label for="Country" style="font-weight: bolder;">Country:</label><br>
+                        <h6><%= orders.deliveryAddress.Country %></h6>
+                    </div>
+                    <div class="col-md-4">
+                        <article class="icontext align-items-start">
+                            <span class="icon icon-sm rounded-circle bg-primary-light">
+                                <i class="text-primary material-icons md-local_shipping"></i>
+                            </span>
+                            <div class="text">
+                                <h6 class="mb-1">Order info</h6>
+                                <p class="mb-1"> <br>
+                                    Pay method: <%= orders.paymentMethod %> <br>
+                                    Status: <%= orders.status %>
+                                </p </div> </article> </div> <!-- col// -->
+                                <div class="col-md-4">
+                                    <article class="icontext align-items-start">
+                                        <span class="icon icon-sm rounded-circle bg-primary-light">
+                                            <i class="text-primary material-icons md-place"></i>
+                                        </span>
+                                        <div class="text">
+                                            <h6 class="mb-1">Deliver to</h6>
+                                            <p class="mb-1">
+                                                City: <%= orders.deliveryAddress.city %>,
+                                                <%= orders.deliveryAddress.Country %> <br>
+                                                <%= orders.deliveryAddress.addressType %>,
+                                                <%= orders.deliveryAddress.HouseNo %>, Floor
+                                                <%= orders.deliveryAddress.Floor %> <br>
+                                                Po Box <%= orders.deliveryAddress.pincode %>
+                                            </p>
+
+                                        </div>
+                                    </article>
+                                </div> <!-- col// -->
+
+                            </div> <!-- row // -->
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th width="40%">Product</th>
+                                                    <th width="20%">Unit Price</th>
+                                                    <th width="20%">Quantity</th>
+                                                    <th width="20%" class="text-end">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% orders.items.forEach((item) => { %>
+                                                <tr>
+                                                    <td>
+                                                        <a class="itemside" href="#">
+                                                            <div class="left">
+                                                                <img src="/<%= item.image %>" width="40" height="40"
+                                                                    class="img-xs" alt="<%= item.name %>">
+                                                            </div>
+                                                            <div class="info"> <%= item.name %> </div>
+                                                        </a>
+                                                    </td>
+                                                    <td> &#8377;<%= item.productPrice %></td>
+                                                    <td> <%= item.quantity %></td>
+                                                    <td class="text-end"> &#8377;<%= item.price %></td>
+                                                </tr>
+
+                                                <% }); %>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <article class="float-end">
+                                                            <dl class="dlist">
+                                                                <dt>Subtotal:</dt>
+                                                                <dd>&#8377;<%= orders.billTotal %></dd>
+                                                            </dl>
+                                                            <dl class="dlist">
+                                                                <dt>Grand total:</dt>
+                                                                <dd> <b class="h5">&#8377;<%= orders.billTotal %></b>
+                                                                </dd>
+                                                            </dl>
+                                                            <dl class="dlist">
+                                                                <dt class="text-muted">Payment Status:</dt>
+                                                                <dd>
+                                                                    <span
+                                                                        class="badge rounded-pill alert-success text-success"><%= orders.paymentStatus %></span>
+                                                                </dd>
+                                                            </dl>
+                                                        </article>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div> <!-- table-responsive// -->
+                                </div> <!-- col// -->
+
+                            </div> <!-- col// -->
+                    </div>
+                </div> <!-- card-body end// -->
+            </div>
+        </div>
+</section>
+<script>
+    const downloadInvoice = (orderId) => {
+        window.location.href = `/download-invoice/${orderId}`;
+    };
+</script>
+<%- include('partials/footer.ejs') %>

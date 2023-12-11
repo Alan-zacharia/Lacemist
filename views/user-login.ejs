@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>LaceMist</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <main>
+        <header class="main-header style-2 navbar">
+            <div class="col-brand">
+                <a href="index.html" class="brand-wrap">
+                    <img src="/userassets/imgs/theme/icons/lacemist-logo.png" class="logo" alt="Evara Dashboard">
+                </a>
+            </div>
+            <div class="col-nav">
+                <ul class="nav">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                            <a class="dropdown-item text-brand" href="#"><img src="/assets/imgs/theme/flag-us.png" alt="English">English</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-fr.png" alt="Français">Français</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
+                        </div>
+                    </li>
+                   
+                </ul>
+            </div>
+        </header>
+        <section class="content-main mt-100 mb-20">
+            <div class="card mx-auto card-login">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">Log in</h4>
+                    <center><p class="text-danger"><%= err %></p></center>
+                    <form action="/login" method="post" id="loginForm">
+                        <div class="mb-3">
+                            <input class="form-control" name="email"  type="text" required>
+                        </div> <!-- form-group// -->
+                        <div class="mb-3">
+                            <input class="form-control" name="password"  placeholder="Enter your Password" type="password" required>
+                        </div> <!-- form-group// -->
+                        <div class="mb-3">
+                            <a href="/forgot-password" class="float-end font-sm text-muted mb-2">Forgot password?</a>
+                          
+                        </div> 
+                        <!-- form-group form-check .// -->
+                        <div class="mb-4">
+                            <button type="submit" class="btn btn-primary w-100" name="login"> Login </button>
+                        </div> 
+                        <!-- form-group// -->
+                    </form>
+                   
+                </div>
+
+            
+                <p class="text-center mb-4">Don't have account? <a href="/signup">Sign up</a></p>
+            </div>
+        </section>
+        <footer class="main-footer text-center">
+            <p class="font-xs">
+                <script>
+                document.write(new Date().getFullYear())
+                </script> © LaceMist.
+            </p>
+            <p class="font-xs pb-20">All rights reserved</p>
+        </footer>
+    </main>
+    <script>
+        $(document).ready(function () {
+             $('#loginForm').submit(function (event) {
+                 event.preventDefault(); // Prevent the default form submission
+
+                 // Get the values from the form
+                 var email = $('#email').val();
+                 var password = $('#password').val();
+
+                 // Regular expressions for email and password validation
+                 var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                 
+
+                 // Error messages
+                 var emailError = '';
+                 var passwordError = '';
+
+                 // Validate email
+                 if (!emailPattern.test(email)) {
+                     emailError = 'Enter a valid email address';
+                 }
+
+                 // Validate password
+                 // if (password.length <= 8) {
+                 //     passwordError = 'Password must contain at least 8 characters,';
+                 // }
+
+                 // Display error messages or submit the form
+                 if (emailError || passwordError) {
+                     $('#emailError').text(emailError);
+                     $('#passwordError').text(passwordError);
+                 } else {
+                     // Form is valid, you can submit it here or redirect to another page
+                     $('#emailError').text('');
+                     $('#passwordError').text('');
+                     // Uncomment the following line to submit the form
+                     $('#loginForm').unbind('submit').submit();
+                 }
+             });
+
+             
+            $('#signupForm').submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get the values from the form
+                var email = $('#emailSignup').val();
+                var password = $('#passwordSignup').val();
+              
+                var phone = $('#phone').val();
+                var confirmPassword = $('#confirmPassword').val();
+
+
+                // Regular expressions for email and password validation
+                var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+                var phonePattern=/^[0-9]+$/
+
+                // Error messages
+                var emailError = '';
+                var passwordError = '';
+                var phoneError = '';
+                var confirmPasswordError = '';
+
+                // Validate email
+                if (!emailPattern.test(email)) {
+                    emailError = 'Enter a valid email address';
+                }
+
+                // Validate password
+                if (password.length <= 6) {
+                    passwordError = 'Password must contain at least 6 characters,';
+                }
+                if (firstName == "") {
+                    firstNameError = 'Enter your first name,';
+                }
+                if (lastName == "") {
+                    lastNameError = 'Enter your last name,';
+                }
+                if (phone == "") {
+                    phoneError = 'Enter your phone number'; 
+                }else{
+                  if (phone.length < 10)
+                        phoneError = "Must contain 10 digits"
+                    else if (!phonePattern.test(phone))
+                        phoneError = "Must not contain characters"
+                }
+                if (confirmPassword == "") {
+                    confirmPasswordError = 'Confirm Your password,'; 
+             }else{
+                   if (password != confirmPassword)
+                        confirmPasswordError = "Password not match"
+             }
+
+
+                // Display error messages or submit the form
+                if (emailError || passwordError || firstNameError || lastNameError || confirmPasswordError || phoneError) {
+                    $('#email-Error').text(emailError);
+                    $('#password-Error').text(passwordError);
+                    $('#phoneError').text(phoneError);
+                    $('#firstNameError').text(firstNameError);
+                    $('#lastNameError').text(lastNameError);
+                    $('#confirmPasswordError').text(confirmPasswordError);
+
+                } else {
+                    // Form is valid, you can submit it here or redirect to another page
+                    $('#email-Error').text('');
+                    $('#password-Error').text('');
+                    $('#phoneError').text('');
+                    $('#confirmpasswordError').text('');
+
+                    $('#signupForm').unbind('submit').submit();
+                }
+            });
+         });
+
+</script>
+    <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="/assets/js/main.js" type="text/javascript"></script>
+</body>
+
+</html>

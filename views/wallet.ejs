@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head.ejs') %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Transaction List</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        /* Add your custom styles here */
+        body {
+            background-color: #f8f9fa;
+        }
+        strong{
+          font-weight: 700;
+          color: #000000;
+        }
+        p{
+            color: #000000;
+            font-weight: 500;
+        }
+        .transaction-list {
+            margin-top: 30px;
+        }
+
+        .transaction-item {
+            background-color: #fff;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .transaction-amount {
+            font-weight: bold;
+        }
+
+        .transaction-description {
+            color: #6c757d;
+        }
+
+        .user-details {
+            background-color: rgb(9, 194, 95);
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <% if (user && Wallet ) { %>
+    <div class="container transaction-list mb-100">
+        <!-- User Details -->
+        <div class="user-details">
+            <h3 class="text-center mb-4" style="font-weight: 700;">USER DETAILS</h3>
+            <p><strong>User:</strong> <%= user.username %></p>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <p><strong>Total Balance:</strong> ₹<%= Wallet.balance.toFixed(2) %></p>
+        </div>
+       
+         
+        
+        <!-- Transaction Item 1 -->
+        <% transactions.forEach(element => { %>
+        <div class="transaction-item">
+           
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="transaction-icon text-success">Transaction <i class="fas fa-check-circle"></i></span>
+                        <span class="transaction-description"><%= element.description %></span>
+                    </div>
+                    <div>
+                      <% if (element.type == 'credit') { %>
+                        <span class="transaction-amount text-success"> ₹ <%= element.amount.toFixed(2) %></span>
+                        <% } else { %>
+                        <span class="transaction-amount text-danger"> ₹ <%= element.amount.toFixed(2) %></span>
+                        <% } %>
+                    </div>
+                </div>
+                <p class="mt-3">Transaction ID: <%= element._id %></p>
+                <% if (element.type == 'credit') { %>
+                    <p class="mt-3">Type: <span style="color: green; font-weight: 700;"> <%= element.type %> </span></p>
+                    <% } else { %>
+                        <p class="mt-3" style="color: red;">Type: <%= element.type %></p>
+                <% } %>
+                
+                <p>Date: <%= element.date.toLocaleString() %></p>
+            
+        </div>
+        
+          
+        <% }) %>
+       <% } else { %>
+        
+        <div class="container text-center mt-200 mb-200">
+            <h3>Transactions not Found</h3>
+        </div>
+        <% } %>
+        <div class="pagination-area mt-30 mb-50">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-start">
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                  <% if (i === currentPage) { %>
+                    <li class="page-item active"><span class="page-link"><%= i %></span></li>
+                  <% } else if (i === currentPage - 1 || i === currentPage + 1 || i === 1 || i === totalPages) { %>
+                    <li class="page-item"><a class="page-link" href="?page=<%= i %>&search=<%= search %>"><%= i %></a></li>
+                  <% } else if (i === currentPage - 2 || i === currentPage + 2) { %>
+                    <li class="page-item"><span class="page-link dot">...</span></li>
+                  <% } %>
+                <% } %>
+                <li class="page-item">
+                  <a class="page-link" href="?page=<%= currentPage + 1 %>&search=<%= search %>">
+                    <i class="material-icons md-chevron_right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          
+    </div>
+   
+    <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+<%- include('partials/footer.ejs') %>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>LaceMist</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <main>
+        <header class="main-header style-2 navbar">
+            <div class="col-brand">
+                    <h3><span style="color:rgb(238, 177, 8); font-weight: 900;">LACE</span> <span style="color: blue; font-weight: 900;">MIST</span></h3>
+            </div>
+            <div class="col-nav">
+                <ul class="nav">
+                   
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i class="material-icons md-cast"></i></a>
+                    </li>
+                    <li class="dropdown nav-item">
+                        <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownLanguage" aria-expanded="false"><i class="material-icons md-public"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLanguage">
+                            <a class="dropdown-item text-brand" href="#"><img src="/assets/imgs/theme/flag-us.png" alt="English">English</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-fr.png" alt="Français">Français</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-jp.png" alt="Français">日本語</a>
+                            <a class="dropdown-item" href="#"><img src="/assets/imgs/theme/flag-cn.png" alt="Français">中国人</a>
+                        </div>
+                    </li>
+                
+                </ul>
+            </div>
+        </header>
+        <section class="content-main mt-20 mb-20">
+            <div class="card mx-auto card-login">
+                <div class="card-body">
+                  
+                    <h3 class="card-title mb-4">Admin Log in</h3>
+                    <form action="/admin/" method="post" id="adminLoginForm">
+                        <% if (err) { %>
+                            <span style="color: red;"><%= err %></span>
+                        <% } %>
+                       
+                        <div class="mb-3">
+                            <input class="form-control" name="adminEmail" placeholder="Enter your email" type="text" id="AdminLogin" required>
+                            <span id="errorShow" style="color: red;"></span>
+                        </div> <!-- form-group// -->
+                        <div class="mb-3">
+                            <input class="form-control" name="adminPassword" placeholder="Enter your Password" type="password" id="adminPassword" required>
+                            <span id="passwordValidationMessage" style="color: red;"></span>
+                        </div> 
+                        <div class="mb-4">
+                            <button type="submit" class="btn btn-primary w-100" name="login"> Login </button>
+                        </div> 
+                        <!-- form-group// -->
+                    </form>
+                  
+                </div>
+            </div>
+        </section>
+        <footer class="main-footer text-center">
+            <p class="font-xs">
+                <script>
+                document.write(new Date().getFullYear())
+                </script> © LACE MIST.
+            </p>
+            <p class="font-xs pb-20">All rights reserved</p>
+        </footer>
+    </main>
+
+    <script>
+     const adminLoginForm = document.getElementById("adminLoginForm");
+     const adminInput = document.getElementById("AdminLogin");
+     const errorShow = document.getElementById("errorShow");
+     const adminPassword = document.getElementById("adminPassword");
+     const passwordValidationMessage = document.getElementById("passwordValidationMessage");
+        
+     function validateEmail(email)  
+     {
+     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+     return emailRegex.test(email);
+     }
+     
+     function validatePassword(password)
+     {
+  
+     return password.length >= 6;
+     }
+     
+     adminLoginForm.addEventListener("submit",(e)=>{  
+    
+     const email = adminInput.value;
+     const password = adminPassword.value;
+
+     if (!validateEmail(email) || !validatePassword(password)){
+     e.preventDefault(); // Prevent form submission if there are validation errors
+     }
+     if(validateEmail(email) && validatePassword(password)){
+        errorShow.textContent = "";
+        passwordValidationMessage.textContent = "";
+     }else{
+        if(!validateEmail(email)){
+            errorShow.textContent = "Please enter a valid email";
+        }else{
+            errorShow.textContent = ""
+        }if(!validatePassword(password)){
+            passwordValidationMessage.textContent = "password must be 6 characters"
+        }else{
+            passwordValidationMessage.textContent = ""
+        }
+     }
+
+     });
+    </script>
+
+    <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="/assets/js/main.js" type="text/javascript"></script>
+</body>
+
+</html>
