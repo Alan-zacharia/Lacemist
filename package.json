@@ -436,7 +436,7 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC"
