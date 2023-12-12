@@ -12,7 +12,7 @@ const dotenv = require('dotenv').config()
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/customer');
 const {
-  default: mongoose
+mongoose
 } = require('mongoose');
 const MongoURL = process.env.MONGO_DB_URL;
 var app = express();
