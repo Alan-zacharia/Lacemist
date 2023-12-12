@@ -5,18 +5,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
-const mongooose = require('mongoose');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var debug = require('debug')('my-express-app:server');
 const dotenv = require('dotenv').config()
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/customer');
-const {
-mongoose
-} = require('mongoose');
+// const { mongoose } = require('mongoose'); 
 const MongoURL = process.env.MONGO_DB_URL;
 var app = express();
-
 
 
 var port = normalizePort(process.env.PORT || '3000');
@@ -77,7 +74,7 @@ mongoose.connect(MongoURL, {
   tlsAllowInvalidCertificates: true,
   ssl:true,
 })
-const db = mongooose.connection;
+const db = mongoose.connection;
 db.on('error', () => {
   console.log("Error while connecting");
 })

@@ -56,19 +56,24 @@ const addtoCart = async (req, res , next) => {
         next()
       }
       console.log(userId, "==================================");
+      if (userId === 'false') {
+        console.log("user is not logged");
+        return res.status(404).json('user not logged'); // return to prevent further execution
+    }
+    
       const isValidObjectId = mongoose.Types.ObjectId.isValid(userId);
 
       if (!isValidObjectId) {
         console.log("user is not logged");
-        res.status(500)
-        next()
-      }
-      const userData = await customerModel.findById(userId);
-      console.log(userData);
-      if (!userData) {
-        res.status(500)
-        next()
-      }
+        return res.status(404).json('user not logged'); // return to prevent further execution
+    }
+    
+    const userData = await customerModel.findById(userId);
+    console.log(userData);
+    if (!userData) {
+        return res.status(500).json({ error: 'User data not found' }); // return to prevent further execution
+    }
+     
       const cart = await cartModel.findOne({
         userId: userId
       }); 

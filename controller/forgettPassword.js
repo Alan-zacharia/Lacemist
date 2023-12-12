@@ -35,8 +35,8 @@ const forgettPasswordPost = async (req, res , next) => {
         const mailOptions = {
             to: email,
             subject : "Password reset request",
-            text : `Click the following link to reset your password : http://localhost:4000/reset-password/${token}`,
-            html : `<p>Click the following link to reset your password : </p><p><a href="http://localhost:4000/reset-password/${token}">http://localhost:4000/reset-password/${token}</a></p>`,
+            text : `Click the following link to reset your password : https://www.lacemist.shop/reset-password/${token}`,
+            html : `<p>Click the following link to reset your password : </p><p><a href="https://www.lacemist.shop/reset-password/${token}">https://www.lacemist.shop/reset-password/${token}</a></p>`,
         };
         
         await transporter.sendMail(mailOptions);

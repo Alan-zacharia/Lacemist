@@ -156,7 +156,7 @@ const loginPage = async (req, res,next) => {
     } else if (req.session.noUser) {
       req.session.noUser = false;
       res.render('user-login', {
-        err: "Incorrect Username"
+        err: "Incorrect Email"
       });
     } else {
       res.render("user-login", {
