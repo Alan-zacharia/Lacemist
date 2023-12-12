@@ -36,7 +36,7 @@ let adminloginpost = async (req,res)=>{
           
           })
           if (!adminExist) {
-            return res.render('admin-login',{err:"Invalid username"})
+            return res.render('admin-login',{err:"Invalid Email"})
           }
              
           if (adminExist) {
