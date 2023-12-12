@@ -980,10 +980,10 @@ const Invoice = async (req, res, next) => {
 
       client: {
         company: user.username,
-        address: "KOCHI",
-        zip: "686633",
-        city: "maradu",
-        country: "india",
+        address: order.deliveryAddress.district,
+        zip: order.deliveryAddress.pincode,
+        city: order.deliveryAddress.city,
+        country: order.deliveryAddress.Country,
       },
 
       information: {

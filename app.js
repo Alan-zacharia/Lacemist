@@ -11,9 +11,8 @@ var debug = require('debug')('my-express-app:server');
 const dotenv = require('dotenv').config()
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/customer');
-// const { mongoose } = require('mongoose'); 
 const MongoURL = process.env.MONGO_DB_URL;
-var app = express();
+var app = express();  
 
 
 var port = normalizePort(process.env.PORT || '3000');

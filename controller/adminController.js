@@ -656,13 +656,13 @@ const saleDailyReport = async (req, res) => {
       if (dailyOrders && dailyOrders.length > 0) {
         // Adding order details to PDF
         let rows = dailyOrders.map(order => [
-          `#${dailyOrders._id.toString()}`,
-          dailyOrders.status,
-          dailyOrders.orderDate.toLocaleString(),
-          dailyOrders.paymentMethod,
-          `INR ${dailyOrders.billTotal}`
+          `#${order._id.toString()}`,
+          order.status,
+          order.orderDate.toLocaleString(),
+          order.paymentMethod,
+          `INR ${order.billTotal}`
         ]);
-
+ 
         docDefinition.content.push({
           style: 'tableExample',
           table: {
