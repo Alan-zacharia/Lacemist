@@ -66,12 +66,31 @@
                 <p>Whole data about your business here</p>
             </div>
             <div>
-                <a href="/admin/generate-invoice-daily" class="btn btn-primary" download>
-                    <i class="text-muted material-icons md-post_add"></i>Daily Report
-                  </a>
-                  <a href="/admin/generate-invoice" class="btn btn-primary" download>
-                    <i class="text-muted material-icons md-post_add"></i>Create Report
-                  </a>     
+                    <a href="/admin/generate-invoice-daily" class="btn btn-primary" download>
+                        <i class="text-muted material-icons md-post_add"></i>Daily Report
+                    </a>
+                    <a href="#" class="btn btn-primary" id="monthlyReportButton" onclick="openModal()">
+                        <i class="text-muted material-icons md-post_add"></i>Monthly Report
+                    </a>
+                    <div id="dateModal" class="modal">
+                        <div class="modal-content">
+                          <span class="close" onclick="closeModal()">&times;</span>
+                          
+                          <!-- Bootstrap Card -->
+                          <div class="card date-box">
+                            <div class="card-body">
+                              <label for="reportDate">Select Month and Year:</label>
+                              <input type="date" id="reportDate" name="Date" class="form-control" required>
+                              <button onclick="generateMonthlyReport()" class="btn btn-primary">Generate Report</button>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </div>
+                      
+                    <a href="/admin/generate-invoice" class="btn btn-primary" download>
+                        <i class="text-muted material-icons md-post_add"></i>Create Report
+                    </a>     
             </div> 
         </div>
         <div class="row">
@@ -312,6 +331,46 @@
             }
         });
     });
+
+    // Function to open the modal
+function openModal() {
+  const modal = document.getElementById('dateModal');
+  modal.style.display = 'block';
+}
+
+// Function to close the modal
+function closeModal() {
+  const modal = document.getElementById('dateModal');
+  modal.style.display = 'none';
+}
+
+function generateMonthlyReport() {
+   const selectedDate = document.getElementById('reportDate').value;
+
+   if (!selectedDate) {
+      alert('Please select a valid date.');
+      return;
+   }
+
+   fetch('/admin/generate-invoice-monthly', {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ Date: selectedDate }),
+   })
+      .then(response => response.blob())
+      .then(blob => {
+         const link = document.createElement('a');
+         link.href = window.URL.createObjectURL(blob);
+         link.download = 'filename.pdf';
+         link.click();
+      })
+      .catch(error => console.error('Error generating report:', error));
+
+   closeModal();
+}
+
     </script>
     
     <%- include('admin-partials/footer.ejs') %>

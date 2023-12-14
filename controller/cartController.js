@@ -418,6 +418,7 @@ let checkoutGet = async (req, res , next) => {
       console.log("//////////////////////////////////////////////////"+billTotal);
       let successFull = ''
       let total = ''
+      let subTotal = ''
       if (req.session.coupon ) {
         if(billTotal <= req.session.coupon.minPurchase){
          var minPurchaseMesage = `Sorry this coupon minimum purchase is ${req.session.coupon.minPurchase} `
@@ -425,8 +426,9 @@ let checkoutGet = async (req, res , next) => {
          var minPurchaseMesage = null;
         console.log(req.session.coupon.minPurchase);
         console.log('Original billTotal:', billTotal);
-        total = billTotal
-        billTotal = billTotal - (billTotal * req.session.coupon.minDiscountPercentage)/100 ;      
+        subTotal = billTotal
+        billTotal = billTotal - (billTotal * req.session.coupon.minDiscountPercentage)/100 ;    
+        total = (billTotal * req.session.coupon.minDiscountPercentage)/100;
         req.session.billTotal = billTotal
         var code  =  req.session.coupon.couponCode
         successFull = `Coupon applied ${req.session.coupon.minDiscountPercentage}% OFF successfull`
@@ -459,7 +461,8 @@ console.log(selectedItems + "'''''''''''''''''''''''''''''''''''''''''''");
           code,
           wallet,
           minPurchaseMesage,
-          total
+          total,
+          subTotal
         })
       }
     } else {
@@ -469,7 +472,7 @@ console.log(selectedItems + "'''''''''''''''''''''''''''''''''''''''''''");
     console.log(err);
     res.status(500)
     next()
-  }
+  } 
 }
 
 const CouponApply = async (req, res , next) => {

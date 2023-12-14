@@ -69,10 +69,10 @@ const dashboard = async (req, res) => {
     .limit(4)
     .exec();
     const userDetail = await customerModel.findOne({ _id: orders[0].user });
-
+    const deliveredOrdersRev = allOrders.filter(order => order.status === 'Delivered');
     const productCount = allProducts.length;
     const categoriesCount = allCategories.length;
-    const orderCount = allOrders.length;
+    const orderCount = allOrders.length; 
     const currentDate = new Date();
     const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
     const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
@@ -85,7 +85,7 @@ const dashboard = async (req, res) => {
       orderDate: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
-    const totalRevenue = allOrders.reduce((total, order) => {
+    const totalRevenue = deliveredOrdersRev.reduce((total, order) => {
       return total + order.billTotal;
     }, 0);
 
@@ -96,13 +96,13 @@ const dashboard = async (req, res) => {
 
     const monthlyEarnings = deliveredOrders.reduce((totalEarnings, order) => {
       return totalEarnings + order.billTotal;
-    }, 0);
+    }, 0);    
 
     const weeklyOrders = await Order.find({
       orderDate: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
-    const weeklyOrderCount = weeklyOrders.length;
+    const weeklyOrderCount = weeklyOrders.length;              
     const deliveredOrderCount = deliveredOrders.length;
     const pendingOrderCount = pendingOrders.length;
 
@@ -380,92 +380,7 @@ const couponDelete = async (req,res)=>{
     console.log(error.message);
   }
 }
-// const saleReport = async (req, res) => {
-//   try {
-//     const allProducts = await productModel.find();
-//     const allCategories = await CategoryModel.find();
-//     const allOrders = await Order.find();
 
-//     const productCount = allProducts.length;
-//     const categoriesCount = allCategories.length;
-//     const orderCount = allOrders.length;
-//     const currentDate = new Date();
-//     const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-//     const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-//     const startOfWeek = new Date(currentDate);
-//     startOfWeek.setDate(currentDate.getDate() - currentDate.getDay()); 
-//     const endOfWeek = new Date(currentDate);
-//     endOfWeek.setDate(startOfWeek.getDate() + 6); 
-
-//     const monthlyOrders = await Order.find({
-//       orderDate: { $gte: startOfMonth, $lte: endOfMonth },
-//     });
-
-//     const totalRevenue = allOrders.reduce((total, order) => {
-//       return total + order.billTotal;
-//     }, 0);
-
-//     const averageRevenue = orderCount > 0 ? totalRevenue / orderCount : 0;
-
-//     const deliveredOrders = monthlyOrders.filter(order => order.status === 'Delivered');
-//     const pendingOrders = monthlyOrders.filter(order => order.status !== 'Delivered');
-
-//     const monthlyEarnings = deliveredOrders.reduce((totalEarnings, order) => {
-//       return totalEarnings + order.billTotal;
-//     }, 0);
-
-//     const weeklyOrders = await Order.find({
-//       orderDate: { $gte: startOfWeek, $lte: endOfWeek },
-//     });
-
-//     const weeklyOrderCount = weeklyOrders.length;
-//     const deliveredOrderCount = deliveredOrders.length;
-//     const pendingOrderCount = pendingOrders.length;
-
-//     const doc = new PDFDocument();
-
-//     res.setHeader('Content-Type', 'application/pdf');
-//     res.setHeader('Content-Disposition', `attachment; filename="sales_report.pdf"`);
-
-//     doc.pipe(res);
-
-//     doc
-//       .font('Helvetica-Bold')
-//       .fontSize(20)
-//       .text('LACE MIST', { align: 'center' })
-//       .fontSize(12)
-//       .moveDown(1);
-
-//     doc
-//       .font('Helvetica')
-//       .fontSize(14)
-//       .text('Sales Report', { align: 'center' })
-//       .fontSize(12)
-//       .moveDown(1);
-
-//     doc.text(`Total Products: ${productCount}`);
-//     doc.text(`Total Categories: ${categoriesCount}`);
-//     doc.text(`Total Orders: ${orderCount}`);
-//     doc.text(`Total Revenue: INR${totalRevenue.toFixed(2)}`);
-//     doc.text(`Average Revenue Order: INR${averageRevenue.toFixed(2)}`);
-//     doc.text(`Monthly Earnings: INR${monthlyEarnings.toFixed(2)}`);
-//     doc.text(`Weekly Order Count: ${weeklyOrderCount}`);
-//     doc.text(`Delivered Order Count: ${deliveredOrderCount}`);
-//     doc.text(`Pending Order Count: ${pendingOrderCount}`);
-    
-//     doc.moveDown(1);
-//     doc.moveDown(1);
-//     doc
-//       .font('Helvetica-Oblique')
-//       .fontSize(10)
-//       .text('Thank you for your business!', { align: 'center' });
-
-//     doc.end();
-//   } catch (error) {
-//     console.error('Error generating sales report:', error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// };
 const saleReport = async (req, res) => {
   try {
     let salesData = null; 
@@ -488,15 +403,13 @@ const saleReport = async (req, res) => {
       orderDate: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
-    const totalRevenue = allOrders.reduce((total, order) => {
+    const deliveredOrders = monthlyOrders.filter(order => order.status === 'Delivered');
+    const pendingOrders = monthlyOrders.filter(order => order.status !== 'Delivered');
+ const totalRevenue = deliveredOrders.reduce((total, order) => {
       return total + order.billTotal;
     }, 0);
 
     const averageRevenue = orderCount > 0 ? totalRevenue / orderCount : 0;
-
-    const deliveredOrders = monthlyOrders.filter(order => order.status === 'Delivered');
-    const pendingOrders = monthlyOrders.filter(order => order.status !== 'Delivered');
-
     const monthlyEarnings = deliveredOrders.reduce((totalEarnings, order) => {
       return totalEarnings + order.billTotal;
     }, 0);
@@ -540,7 +453,7 @@ const saleReport = async (req, res) => {
         `
       );
 
-      let orders =  await Order.find();
+      let orders =  await Order.find({status : 'Delivered'});
 
       if (orders && orders.length > 0) {
         // Adding order details to PDF
@@ -551,7 +464,7 @@ const saleReport = async (req, res) => {
           order.paymentMethod,
           `INR ${order.billTotal}`
         ]);
-
+ 
         docDefinition.content.push({
           style: 'tableExample',
           table: {
@@ -606,10 +519,11 @@ const saleDailyReport = async (req, res) => {
     const dailyOrders = await Order.find({
       orderDate: { $gte: startOfDay, $lte: endOfDay },
     });
+    const daily = dailyOrders.filter( order => order.status == 'Delivered')
     const dailyOrderCount = dailyOrders.length;
-    const totalRevenue = allOrders.reduce((total, order) => {
+    const totalRevenue = daily.reduce((total, order) => {
       return total + order.billTotal;
-    }, 0);
+    }, 0); 
 
     const averageRevenue = orderCount > 0 ? totalRevenue / orderCount : 0;
     const dailyEarnings = dailyOrders.reduce((totalEarnings, order) => {
@@ -643,19 +557,111 @@ const saleDailyReport = async (req, res) => {
         `,
         `Daily Order Count: ${dailyOrderCount}
         `,
-       ` Total Count In Stock: ${productCount}
+       ` Total Count In Stock: ${productCount} 
        `,
         `Earnings: ${dailyEarnings ? dailyEarnings.toFixed(2) : 'N/A'}
         `,
         `Average Revenue: ${averageRevenue ? averageRevenue.toFixed(2) : 'N/A'}
         `
+      ); 
+
+                                            
+
+      if (daily && daily.length > 0) {
+        // Adding order details to PDF
+        let rows = daily.map(order => [
+          `#${order._id.toString()}`,
+          order.status,
+          order.orderDate.toLocaleString(),
+          order.paymentMethod,
+          `INR ${order.billTotal}`
+        ]);
+ 
+        docDefinition.content.push({
+          style: 'tableExample',
+          table: {
+            headerRows: 1,
+            body: [
+              ['OrderID', 'Status', 'Date', 'Payment Method', 'Total'],
+              ...rows 
+            ]
+          }
+        });
+      } else {
+        docDefinition.content.push('No order details available.');
+      }
+
+    const pdfDoc = pdfMake.createPdf(docDefinition);
+    pdfDoc.getBuffer((buffer) => {
+      res.writeHead(200, 
+      {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment;filename="filename.pdf"'
+      });
+      res.end(buffer);
+    });
+  } catch (error) {
+    console.error('Error generating sales report:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+
+const salerReportMonth = async(req,res)=>{
+  try{  
+    const currentDate = new Date(req.body.Date);
+    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    const allProducts = await productModel.find();
+    const allCategories = await CategoryModel.find();
+    const productCount = allProducts.length;
+    const monthName = currentDate.toLocaleString('default', { month: 'short' });
+    const currentYear = currentDate.getFullYear();
+    const categoriesCount = allCategories.length; 
+    const order = await Order.find({
+      orderDate : {$gte :startOfMonth , $lte :endOfMonth}, 
+    }) 
+    const deliveredOrders = order.filter(order => order.status === 'Delivered');
+    const orderCount =  order.length
+    const totalRevenue = deliveredOrders.reduce((total, order) => {
+      return total + order.billTotal;
+    }, 0);
+    const averageRevenue = orderCount > 0 ? totalRevenue / orderCount : 0;
+    let docDefinition = {         
+      content: [
+        { text: `Sales Report Month(${monthName},${currentYear})
+        
+        `, style: 'header' }
+      ],
+      styles: {
+        header: {
+          fontSize: 20,  
+          bold: true,
+          alignment: 'center'
+        },
+        tableExample: {
+          margin: [0, 5, 0, 15]
+        }
+      }
+    };
+      docDefinition.content.push(
+        `Total Revenue: INR ${totalRevenue.toFixed(2)}
+        `,
+        `Total Order Count: ${orderCount}
+        `,
+       ` Total Count In Stock: ${productCount}
+       `,
+        `Average Sales: ${averageRevenue ?averageRevenue.toFixed(2) : 'N/A'}
+        `,
+        `Average Revenue: ${averageRevenue ? averageRevenue.toFixed(2) : 'N/A'}
+        `
       );
 
-    
+  
 
-      if (dailyOrders && dailyOrders.length > 0) {
+      if (deliveredOrders && deliveredOrders.length > 0) {
         // Adding order details to PDF
-        let rows = dailyOrders.map(order => [
+        let rows = deliveredOrders.map(order => [
           `#${order._id.toString()}`,
           order.status,
           order.orderDate.toLocaleString(),
@@ -686,11 +692,10 @@ const saleDailyReport = async (req, res) => {
       });
       res.end(buffer);
     });
-  } catch (error) {
-    console.error('Error generating sales report:', error);
-    res.status(500).send('Internal Server Error');
+  }catch(error){
+    console.log(error.message)
   }
-};
+}
 
 module.exports = {
     dashboard,
@@ -707,7 +712,8 @@ module.exports = {
     couponPost,
     couponDelete,
     saleReport,
-    saleDailyReport
+    saleDailyReport,
+    salerReportMonth
   };
   
 
