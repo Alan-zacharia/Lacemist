@@ -4,7 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const session = require('express-session');
+const session = require('express-session'); 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var debug = require('debug')('my-express-app:server');
@@ -31,7 +31,7 @@ function normalizePort(val) {
 
   if (port >= 0) {
     return port;
-  }
+  } 
 
   return false;
 }

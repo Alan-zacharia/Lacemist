@@ -52,7 +52,8 @@ router.post('/category-offer-create',adminAuthentication,categoryController.cate
 //invoice
 router.get('/generate-invoice',adminController.saleReport)
 router.get('/generate-invoice-daily',adminController.saleDailyReport)
- 
+router.post('/generate-invoice-monthly',adminController.salerReportMonth)
+
 router.get('/logout',adminController.adminLogout);
 
 module.exports = router;
