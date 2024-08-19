@@ -15,7 +15,7 @@ const MongoURL = process.env.MONGO_DB_URL;
 var app = express();  
 
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 var server = http.createServer(app);
 server.listen(port);
@@ -68,11 +68,12 @@ function onListening() {
 }
 
 
-mongoose.connect(MongoURL, {
-  tlsAllowInvalidHostnames: true,
-  tlsAllowInvalidCertificates: true,
-  ssl:true,
-})
+// mongoose.connect(MongoURL, {
+//   tlsAllowInvalidHostnames: true,
+//   tlsAllowInvalidCertificates: true,
+//   ssl:true,
+// })
+mongoose.connect(MongoURL)
 const db = mongoose.connection;
 db.on('error', () => {
   console.log("Error while connecting");
@@ -90,7 +91,7 @@ app.use(session({
     maxAge: 3600000
   }
 }));
-
+   
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -105,7 +106,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   res.header('Cache-Control', "private,no-store,no-cache,must-revalidate")
-  next();
+  next();    
 })
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
@@ -126,4 +127,4 @@ app.use(function (err, req, res, next) {
   res.render('page-not-found');
 });
 
-module.exports = app;
+module.exports = app; 

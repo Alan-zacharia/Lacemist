@@ -817,8 +817,7 @@ let checkoutPost = async (req, res, next) => {
         currency: 'INR',
         receipt: 'order',
       };
-
-      razorpayInstance.orders.create(options, async (err, razorpayOrder) => {
+       razorpayInstance.orders.create(options, async (err, razorpayOrder) => {
         if (!err) {
           order.orderId = razorpayOrder.id;
 

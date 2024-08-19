@@ -11,8 +11,7 @@ const router  = express.Router();
 //Guest Page
 router.get('/',CouponExpiration,customerController.home,handle404Error);
 router.get('/product',customerController.productDetails,handle404Error);
-router.get('/product-shoes',customerController.shoes,handle404Error);
-router.post('/resend',customerController.resendOtp,handle404Error)      
+router.get('/product-shoes',customerController.shoes,handle404Error); 
 router.get('/login',customerController.loginPage,handle404Error)
 router.post('/login',customerController.loginpost,handle404Error)
 router.get('/signup',customerController.signuppage,handle404Error)
@@ -21,11 +20,12 @@ router.post('/signup',customerController.postRegister,handle404Error)
 // OTP
 router.get("/otp",customerController.loadOTP,handle404Error);
 router.post('/postotp',customerController.postVerifyOtp,handle404Error);
+router.post('/resend',customerController.resendOtp,handle404Error)     
 
 //product detail
 router.get('/product-details/:productId',customerController.productDetailedView)
 
-// cart 
+// cart     
 router.post("/addToCart",cartController.addtoCart,handle404Error);
 router.get("/cart",userAuthentication,cartController.getCart,handle404Error);
 router.delete("/cart/remove-product/:product",userAuthentication,cartController.cartRemove,handle404Error);

@@ -1,7 +1,6 @@
 {
   "name": "lace-mist",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "dependencies": {
     "abbrev": "^1.1.1",
@@ -439,5 +438,8 @@
     "start": "nodemon app.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {},
+  "keywords": [],
+  "description": ""
 }
